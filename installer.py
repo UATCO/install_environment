@@ -66,7 +66,6 @@ def __get_products():
         'uatf':
             {
                 'Repo': 'https://github.com/UATCO/uatf.git',
-                'Path': f'{path_tests}/venv',
             },
         'big_geek_tests':
             {
@@ -84,8 +83,11 @@ def clone():
     products = __get_products()
     path = __get_config_option('path_tests')
     repo = products[product_name]['Repo']
-    if not os.path.exists(products[product_name]['Path']):
-        subprocess.run(f'git clone {repo}', cwd=path, shell=True)
+    subprocess.run(f'git clone {repo}', cwd=path, shell=True)
+
+    #вдобавок ставим uatf
+    subprocess.run(f'git clone {products["uatf"]["Repo"]}', cwd=path, shell=True)
+
 
 
 def create_venv():
