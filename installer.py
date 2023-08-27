@@ -71,7 +71,7 @@ def __get_products():
     products = {
         'big_geek_tests':
             {
-                'Repo': 'git@github.com:ArturGayazov/big_geek_tests.git',
+                'Repo': 'https://github.com/UATCO/big_geek_tests.git',
                 'Path': f'{path_tests}/big_geek_tests',
             }
     }
