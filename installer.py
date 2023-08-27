@@ -89,18 +89,25 @@ def clone():
         subprocess.run(f'git clone {repo}', cwd=path, shell=True)
 
 
+def create_venv():
+    """Создать виртуальное окружение"""
+
+    path_env = os.path.join(__get_config_option('path_tests'), __get_config_option('main_product'), 'venv')
+    subprocess.run(f'{python} -m venv --system-site-packages {path_env}', shell=True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Clone/update/checkout repositories')
     parser.add_argument('-clone', action='store_true', help='Clone repositories')
-    # parser.add_argument('-create_venv', action='store_true', help='Create venv')
+    parser.add_argument('-create_venv', action='store_true', help='Create venv')
     # parser.add_argument('-reqs', action='store_true', help='Install requirements')
     # parser.add_argument('-checkout', type=str, help='Checkout branches')
     # parser.add_argument('-pull', action='store_true', help='Pull branches')
     args = parser.parse_args()
     if args.clone:
         clone()
-    # if args.create_venv:
-    #     create_venv()
+    if args.create_venv:
+        create_venv()
     # if args.reqs:
     #     install_requirements()
     # if args.checkout:
