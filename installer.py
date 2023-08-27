@@ -63,6 +63,11 @@ def __get_products():
 
     path_lib, path_tests = __get_config_option('path_lib'), __get_config_option('path_tests')
     products = {
+        'uatf':
+            {
+                'Repo': 'https://github.com/UATCO/uatf.git',
+                'Path': f'{path_tests}/venv',
+            },
         'big_geek_tests':
             {
                 'Repo': 'https://github.com/UATCO/big_geek_tests.git',
