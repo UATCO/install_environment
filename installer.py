@@ -28,15 +28,9 @@ def __set_config_option(name_option: str):
         config.read(path_conf, encoding=encoding)
     if not config.has_section(section):
         config.add_section(section)
-    if name_option == 'path_lib':
-        path_lib = input('Укажите путь до репозитория controls: ')
-        config.set(section, name_option, path_lib)
-    elif name_option == 'path_tests':
+    if name_option == 'path_tests':
         path_tests = input('Укажите путь до репозиториев с тестами: ')
         config.set(section, name_option, path_tests)
-    elif name_option == 'path_env':
-        path_env = input('Укажите путь до виртуального окружения: ')
-        config.set(section, name_option, path_env)
     elif name_option == 'main_product':
         product = input('Укажите основной продукт для работы: ')
         config.set(section, name_option, product)
