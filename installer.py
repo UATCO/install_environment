@@ -111,6 +111,22 @@ def create_venv():
         config.write(config_file)
 
 
+def pull():
+    """Обновить ветки"""
+
+    product_name = __get_config_option('main_product')
+    products = __get_products()
+    product = products[product_name]
+    logger.info(f'Updating {product}')
+    path = product['Path']
+    subprocess.run('git pull', cwd=path, shell=True)
+
+    #вдобавок обновляем uatf
+    product = products['uatf']
+    logger.info(f'Updating {product}')
+    path = product['Path']
+    subprocess.run('git pull', cwd=path, shell=True)
+
 def install_requirements():
     """Установить зависимости"""
 
@@ -123,8 +139,7 @@ if __name__ == '__main__':
     parser.add_argument('-clone', action='store_true', help='Clone repositories')
     parser.add_argument('-create_venv', action='store_true', help='Create venv')
     parser.add_argument('-reqs', action='store_true', help='Install requirements')
-    # parser.add_argument('-checkout', type=str, help='Checkout branches')
-    # parser.add_argument('-pull', action='store_true', help='Pull branches')
+    parser.add_argument('-pull', action='store_true', help='Pull branches')
     args = parser.parse_args()
     if args.clone:
         clone()
@@ -132,7 +147,5 @@ if __name__ == '__main__':
         create_venv()
     if args.reqs:
         install_requirements()
-    # if args.checkout:
-    #     checkout(args.checkout)
-    # if args.pull:
-    #     pull()
+    if args.pull:
+        pull()
