@@ -12,7 +12,5 @@ create_venv:
 	$(command) $(obj) -create_venv
 install_requirements:
 	$(command) $(obj) -reqs
-checkout:
-	$(command) $(obj) -checkout $(stand)
 pull:
 	$(command) $(obj) -pull
