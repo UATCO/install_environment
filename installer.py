@@ -121,11 +121,12 @@ def pull():
     path = product['Path']
     subprocess.run('git pull', cwd=path, shell=True)
 
-    #вдобавок обновляем uatf
+    # вдобавок обновляем uatf
     product = products['uatf']
     logger.info(f'Updating {product}')
     path = product['Path']
     subprocess.run('git pull', cwd=path, shell=True)
+
 
 def install_requirements():
     """Установить зависимости"""
