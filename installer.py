@@ -28,10 +28,7 @@ def __set_config_option(name_option: str):
         config.read(path_conf, encoding=encoding)
     if not config.has_section(section):
         config.add_section(section)
-    if name_option == 'path_lib':
-        path_lib = input('Укажите путь до репозитория controls: ')
-        config.set(section, name_option, path_lib)
-    elif name_option == 'path_tests':
+    if name_option == 'path_tests':
         path_tests = input('Укажите путь до репозиториев с тестами: ')
         config.set(section, name_option, path_tests)
     elif name_option == 'path_env':
@@ -67,8 +64,13 @@ def __get_config_option(name_option: str, required_option: bool = True):
 def __get_products():
     """Получить информацию о продуктах"""
 
-    path_lib, path_tests = __get_config_option('path_lib'), __get_config_option('path_tests')
+    path_tests = __get_config_option('path_tests')
     products = {
+        'uatf':
+            {
+                'Repo': 'https://github.com/UATCO/uatf.git',
+                'Path': f'{path_tests}/uatf',
+            },
         'big_geek_tests':
             {
                 'Repo': 'https://github.com/UATCO/big_geek_tests.git',
@@ -87,6 +89,10 @@ def clone():
     repo = products[product_name]['Repo']
     if not os.path.exists(products[product_name]['Path']):
         subprocess.run(f'git clone {repo}', cwd=path, shell=True)
+
+    #накатываем uatf
+    repo = products['uatf']['Repo']
+    subprocess.run(f'git clone {repo}', cwd=path, shell=True)
 
 
 def create_venv():
