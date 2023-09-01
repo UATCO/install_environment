@@ -66,11 +66,6 @@ def __get_products():
 
     path_tests = __get_config_option('path_tests')
     products = {
-        'uatf':
-            {
-                'Repo': 'https://github.com/UATCO/uatf.git',
-                'Path': f'{path_tests}/uatf',
-            },
         'big_geek_tests':
             {
                 'Repo': 'https://github.com/UATCO/big_geek_tests.git',
@@ -89,10 +84,6 @@ def clone():
     repo = products[product_name]['Repo']
     if not os.path.exists(products[product_name]['Path']):
         subprocess.run(f'git clone {repo}', cwd=path, shell=True)
-
-    # накатываем uatf
-    repo = products['uatf']['Repo']
-    subprocess.run(f'git clone {repo}', cwd=path, shell=True)
 
 
 def create_venv():
@@ -121,18 +112,13 @@ def pull():
     path = product['Path']
     subprocess.run('git pull', cwd=path, shell=True)
 
-    # вдобавок обновляем uatf
-    product = products['uatf']
-    logger.info(f'Updating {product}')
-    path = product['Path']
-    subprocess.run('git pull', cwd=path, shell=True)
-
 
 def install_requirements():
     """Установить зависимости"""
 
-    path_tests, path_env = __get_config_option('path_tests'), __get_config_option('path_env')
-    subprocess.run(f'{path_env}/{folder}/pip install -r {path_tests}/uatf/requirements.txt', shell=True)
+    path_tests, path_env, main_product = __get_config_option('path_tests'), __get_config_option(
+        'path_env'), __get_config_option('main_product')
+    subprocess.run(f'{path_env}/{folder}/pip install -r {path_tests}/{main_product}/requirements.txt', shell=True)
 
 
 if __name__ == '__main__':
